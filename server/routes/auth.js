@@ -38,7 +38,7 @@ router.post('/register', [
     // Create token
     const token = jwt.sign(
       { userId: user._id },
-      process.env.JWT_SECRET || 'your_jwt_secret_key_here_change_in_production',
+      process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
@@ -85,7 +85,7 @@ router.post('/login', [
     // Create token
     const token = jwt.sign(
       { userId: user._id },
-      process.env.JWT_SECRET || 'your_jwt_secret_key_here_change_in_production',
+      process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 

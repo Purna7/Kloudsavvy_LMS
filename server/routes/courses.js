@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Course = require('../models/Course');
 const User = require('../models/User');
 const { auth, authorizeRoles } = require('../middleware/auth');
+
+// Helper function to validate MongoDB ObjectId
+const isValidObjectId = (id) => {
+  return mongoose.Types.ObjectId.isValid(id);
+};
 
 // Get all published courses
 router.get('/', async (req, res) => {
@@ -20,6 +26,10 @@ router.get('/', async (req, res) => {
 // Get single course
 router.get('/:id', async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid course ID' });
+    }
+
     const course = await Course.findById(req.params.id)
       .populate('instructor', 'name email');
     
@@ -37,6 +47,10 @@ router.get('/:id', async (req, res) => {
 // Enroll in a course
 router.post('/:id/enroll', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid course ID' });
+    }
+
     const course = await Course.findById(req.params.id);
     
     if (!course) {
@@ -85,6 +99,10 @@ router.get('/user/enrolled', auth, async (req, res) => {
 // Mark session as completed
 router.post('/:courseId/sessions/:sessionId/complete', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.courseId)) {
+      return res.status(400).json({ message: 'Invalid course ID' });
+    }
+
     const user = await User.findById(req.user._id);
     const progress = user.progress.find(p => p.course.toString() === req.params.courseId);
     
@@ -107,8 +125,18 @@ router.post('/:courseId/sessions/:sessionId/complete', auth, async (req, res) =>
 // Create course (instructor/admin only)
 router.post('/', auth, authorizeRoles('instructor', 'admin'), async (req, res) => {
   try {
+    // Whitelist allowed fields to prevent mass assignment
+    const allowedFields = ['title', 'description', 'category', 'duration', 'level', 'thumbnail', 'sessions', 'isPublished'];
+    const courseData = {};
+    
+    allowedFields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        courseData[field] = req.body[field];
+      }
+    });
+
     const course = new Course({
-      ...req.body,
+      ...courseData,
       instructor: req.user._id
     });
 

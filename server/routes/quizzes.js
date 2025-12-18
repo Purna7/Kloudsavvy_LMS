@@ -1,12 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Quiz = require('../models/Quiz');
 const User = require('../models/User');
 const { auth } = require('../middleware/auth');
 
+// Helper function to validate MongoDB ObjectId
+const isValidObjectId = (id) => {
+  return mongoose.Types.ObjectId.isValid(id);
+};
+
 // Get all quizzes for a course
 router.get('/course/:courseId', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.courseId)) {
+      return res.status(400).json({ message: 'Invalid course ID' });
+    }
+
     const quizzes = await Quiz.find({ course: req.params.courseId });
     
     // Remove correct answers from response
@@ -34,6 +44,10 @@ router.get('/course/:courseId', auth, async (req, res) => {
 // Submit quiz
 router.post('/:id/submit', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid quiz ID' });
+    }
+
     const quiz = await Quiz.findById(req.params.id);
     
     if (!quiz) {
@@ -81,6 +95,10 @@ router.post('/:id/submit', auth, async (req, res) => {
 // Get quiz results for a user
 router.get('/:id/results', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid quiz ID' });
+    }
+
     const user = await User.findById(req.user._id);
     const quiz = await Quiz.findById(req.params.id);
     

@@ -1,12 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Lab = require('../models/Lab');
 const User = require('../models/User');
 const { auth } = require('../middleware/auth');
 
+// Helper function to validate MongoDB ObjectId
+const isValidObjectId = (id) => {
+  return mongoose.Types.ObjectId.isValid(id);
+};
+
 // Get all labs for a course
 router.get('/course/:courseId', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.courseId)) {
+      return res.status(400).json({ message: 'Invalid course ID' });
+    }
+
     const labs = await Lab.find({ course: req.params.courseId });
     res.json(labs);
   } catch (error) {
@@ -18,6 +28,10 @@ router.get('/course/:courseId', auth, async (req, res) => {
 // Get single lab
 router.get('/:id', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid lab ID' });
+    }
+
     const lab = await Lab.findById(req.params.id).populate('course', 'title');
     
     if (!lab) {
@@ -34,6 +48,10 @@ router.get('/:id', auth, async (req, res) => {
 // Mark lab as completed
 router.post('/:id/complete', auth, async (req, res) => {
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid lab ID' });
+    }
+
     const lab = await Lab.findById(req.params.id);
     
     if (!lab) {

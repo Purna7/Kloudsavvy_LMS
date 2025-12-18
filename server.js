@@ -6,6 +6,12 @@ const connectDB = require('./server/config/db');
 
 const app = express();
 
+// Validate required environment variables
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL ERROR: JWT_SECRET is not defined.');
+  process.exit(1);
+}
+
 // Connect to MongoDB
 connectDB();
 
