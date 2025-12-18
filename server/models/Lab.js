@@ -27,15 +27,21 @@ const labSchema = new mongoose.Schema({
     enum: ['Easy', 'Medium', 'Hard'],
     default: 'Medium'
   },
-  resources: [{
-    title: String,
-    url: String,
-    type: String
-  }],
-  tasks: [{
-    description: String,
-    order: Number
-  }],
+  resources: {
+    type: [{
+      title: { type: String },
+      url: { type: String },
+      type: { type: String }
+    }],
+    default: []
+  },
+  tasks: {
+    type: [{
+      description: { type: String },
+      order: { type: Number }
+    }],
+    default: []
+  },
   createdAt: {
     type: Date,
     default: Date.now

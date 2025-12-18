@@ -197,13 +197,70 @@ async function loadLabs() {
 
 function playSession(sessionId, videoUrl) {
     if (videoUrl) {
-        alert(`Playing session: ${videoUrl}\n\nIn a production environment, this would open a video player.`);
+        // Create video modal
+        const modal = document.createElement('div');
+        modal.id = 'videoModal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+        
+        // Determine video type and create appropriate player
+        let videoHTML = '';
+        if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+            // YouTube embed
+            videoHTML = `<iframe width="900" height="506" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        } else if (videoUrl.includes('drive.google.com')) {
+            // Google Drive embed - disable download with sandbox
+            videoHTML = `<iframe width="900" height="506" src="${videoUrl}" frameborder="0" allow="autoplay" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"></iframe>`;
+        } else {
+            // Regular video file - disable download with controlsList
+            videoHTML = `<video width="900" height="506" controls autoplay controlsList="nodownload" oncontextmenu="return false;"><source src="${videoUrl}" type="video/mp4">Your browser does not support the video tag.</video>`;
+        }
+        
+        modal.innerHTML = `
+            <div style="position: relative;">
+                <button onclick="closeVideoModal()" style="
+                    position: absolute;
+                    top: -40px;
+                    right: 0;
+                    background: #ff4444;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    border-radius: 5px;
+                ">✕ Close</button>
+                ${videoHTML}
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeVideoModal();
+        });
     } else {
         alert('Video URL not available for this session.');
     }
     
     // Mark session as completed
     markSessionComplete(sessionId);
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    if (modal) modal.remove();
 }
 
 async function markSessionComplete(sessionId) {

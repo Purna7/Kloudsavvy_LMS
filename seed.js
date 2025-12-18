@@ -8,10 +8,7 @@ const Lab = require('./server/models/Lab');
 const seedDatabase = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kloudsavvy_lms', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/kloudsavvy_lms');
     console.log('MongoDB Connected');
 
     // Clear existing data
@@ -51,21 +48,21 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Introduction to Azure Cloud',
-          videoUrl: 'https://example.com/video1',
+          videoUrl: 'https://drive.google.com/file/d/1JAQ5b2-2OLK3C17b0g1QuaxgCzLjQKJd/preview',
           duration: '45 minutes',
           order: 1,
           description: 'Overview of Azure Cloud platform and services'
         },
         {
           title: 'Azure Virtual Machines',
-          videoUrl: 'https://example.com/video2',
+          videoUrl: 'https://www.youtube.com/embed/inaXkN2UrFE',
           duration: '60 minutes',
           order: 2,
           description: 'Creating and managing Azure VMs'
         },
         {
           title: 'Azure Storage Solutions',
-          videoUrl: 'https://example.com/video3',
+          videoUrl: 'https://www.youtube.com/embed/UzTtastcBsk',
           duration: '50 minutes',
           order: 3,
           description: 'Understanding Azure storage options'
@@ -84,14 +81,14 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Introduction to Azure DevOps',
-          videoUrl: 'https://example.com/devops1',
+          videoUrl: 'https://www.youtube.com/embed/4BibQ69MD8c',
           duration: '40 minutes',
           order: 1,
           description: 'Overview of Azure DevOps services'
         },
         {
           title: 'CI/CD Pipelines',
-          videoUrl: 'https://example.com/devops2',
+          videoUrl: 'https://www.youtube.com/embed/NuYDAs3kNV8',
           duration: '75 minutes',
           order: 2,
           description: 'Building automated pipelines'
@@ -110,14 +107,14 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Docker Basics',
-          videoUrl: 'https://example.com/docker1',
+          videoUrl: 'https://www.youtube.com/embed/pTFZFxd4hOI',
           duration: '55 minutes',
           order: 1,
           description: 'Introduction to Docker and containers'
         },
         {
           title: 'Docker Images and Containers',
-          videoUrl: 'https://example.com/docker2',
+          videoUrl: 'https://www.youtube.com/embed/3c-iBn73dDE',
           duration: '65 minutes',
           order: 2,
           description: 'Working with Docker images and containers'
@@ -136,14 +133,14 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Kubernetes Architecture',
-          videoUrl: 'https://example.com/k8s1',
+          videoUrl: 'https://www.youtube.com/embed/X48VuDVv0do',
           duration: '50 minutes',
           order: 1,
           description: 'Understanding Kubernetes components'
         },
         {
           title: 'Pods and Deployments',
-          videoUrl: 'https://example.com/k8s2',
+          videoUrl: 'https://www.youtube.com/embed/s_o8dwzRlu4',
           duration: '70 minutes',
           order: 2,
           description: 'Creating and managing pods'
@@ -162,7 +159,7 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Terraform Basics',
-          videoUrl: 'https://example.com/terraform1',
+          videoUrl: 'https://www.youtube.com/embed/l5k1ai_GBDE',
           duration: '45 minutes',
           order: 1,
           description: 'Introduction to Infrastructure as Code'
@@ -181,7 +178,7 @@ const seedDatabase = async () => {
       sessions: [
         {
           title: 'Ansible Fundamentals',
-          videoUrl: 'https://example.com/ansible1',
+          videoUrl: 'https://www.youtube.com/embed/1id6ERvfozo',
           duration: '50 minutes',
           order: 1,
           description: 'Getting started with Ansible'

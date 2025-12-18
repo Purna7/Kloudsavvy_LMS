@@ -14,18 +14,22 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Routes
+// API Routes (before static files)
 app.use('/api/auth', require('./server/routes/auth'));
 app.use('/api/courses', require('./server/routes/courses'));
 app.use('/api/quizzes', require('./server/routes/quizzes'));
 app.use('/api/labs', require('./server/routes/labs'));
 
-// Serve frontend
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve frontend for all other routes (SPA fallback)
+app.use((req, res, next) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  } else {
+    next();
+  }
 });
 
 const PORT = process.env.PORT || 5000;
