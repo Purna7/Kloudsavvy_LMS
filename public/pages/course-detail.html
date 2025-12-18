@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - Kloudsavvy LMS</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>Kloudsavvy LMS</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/pages/courses.html" class="nav-link">My Courses</a></li>
+                <li><a href="/pages/dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="#" class="nav-link" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="course-detail">
+            <div class="container">
+                <div id="courseContent">
+                    <div class="loading">Loading course details...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Kloudsavvy Solutions Pvt Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/course-detail.js"></script>
+</body>
+</html>

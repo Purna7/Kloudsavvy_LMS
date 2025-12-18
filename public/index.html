@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kloudsavvy LMS - Learning Management System</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>Kloudsavvy LMS</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li id="coursesNav" style="display: none;"><a href="/pages/courses.html" class="nav-link">My Courses</a></li>
+                <li id="dashboardNav" style="display: none;"><a href="/pages/dashboard.html" class="nav-link">Dashboard</a></li>
+                <li id="loginNav"><a href="/pages/login.html" class="nav-link">Login</a></li>
+                <li id="registerNav"><a href="/pages/register.html" class="nav-link">Register</a></li>
+                <li id="logoutNav" style="display: none;"><a href="#" class="nav-link" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Welcome to Kloudsavvy Learning Portal</h1>
+                <p class="hero-subtitle">Master Cloud Technologies with Expert-Led Training</p>
+                <p class="hero-description">
+                    Learn Azure Cloud, Azure DevOps, Terraform, Docker, Kubernetes, Ansible and more 
+                    through virtual/in-person trainings, recorded sessions, hands-on labs, and interactive quizzes.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/pages/register.html" class="btn btn-primary">Get Started</a>
+                    <a href="#courses" class="btn btn-secondary">Browse Courses</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="courses" class="courses-section">
+            <div class="container">
+                <h2>Available Courses</h2>
+                <div id="coursesGrid" class="courses-grid">
+                    <div class="loading">Loading courses...</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Why Choose Kloudsavvy?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎥</div>
+                        <h3>Recorded Sessions</h3>
+                        <p>Watch expert-led training sessions at your own pace, anytime, anywhere.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Interactive Quizzes</h3>
+                        <p>Test your knowledge with comprehensive quizzes and track your progress.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>Hands-On Labs</h3>
+                        <p>Practice with real-world scenarios in our interactive lab environment.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Expert Instructors</h3>
+                        <p>Learn from industry professionals with years of practical experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Kloudsavvy Solutions Pvt Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
